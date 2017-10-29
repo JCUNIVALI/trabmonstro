@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trabmonstro", "trabmonstro\trabmonstro.vcxproj", "{A9A79929-8FEC-421B-80BF-84CE5336FBD8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Debug|x64.ActiveCfg = Debug|x64
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Debug|x64.Build.0 = Debug|x64
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Debug|x86.ActiveCfg = Debug|Win32
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Debug|x86.Build.0 = Debug|Win32
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Release|x64.ActiveCfg = Release|x64
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Release|x64.Build.0 = Release|x64
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Release|x86.ActiveCfg = Release|Win32
+		{A9A79929-8FEC-421B-80BF-84CE5336FBD8}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03773EF1-7ACD-4BFC-8698-F7085006FF09}
+	EndGlobalSection
+EndGlobal
