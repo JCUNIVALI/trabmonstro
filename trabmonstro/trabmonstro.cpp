@@ -3,11 +3,12 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <time.h>
 #define TAMANHOMATRIZ 5
 using namespace std;
 
 
-void movemostro(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int LinhaMonstro, int ColunaMonstro, int LinhaPersonagem, int ColunaPersonagem) {
+void MoveMonstro(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int LinhaMonstro, int ColunaMonstro, int LinhaPersonagem, int ColunaPersonagem) {
 	if(LinhaMonstro<LinhaPersonagem && ColunaMonstro == ColunaPersonagem) {
 		MatrizMonstro[LinhaMonstro][ColunaMonstro] = 0;
 		LinhaMonstro++;
