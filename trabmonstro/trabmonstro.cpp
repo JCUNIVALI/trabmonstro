@@ -61,6 +61,7 @@ int main()
 	MatrizMonstro[3][4] = 1;
 	MatrizMonstro[4][0] = 1;
 	MatrizMonstro[4][2] = 1;
+
     return 0;
 }
 
