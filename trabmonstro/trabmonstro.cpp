@@ -5,8 +5,8 @@
 using namespace std;
 
 
-bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Linha, int Coluna, int contador, int &contadorexterno) {
-	if(Linha == 2 && Coluna == 2) {
+bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Linha, int Coluna, int contador, int &contadorexterno, int xperson,int yperson) {
+	if(Linha == xperson && Coluna == yperson) {
 		if(contadorexterno == 0) {
 			contadorexterno = contador;
 			contador--;
@@ -31,7 +31,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Linha++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno,xperson,yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			Linha--;
@@ -43,7 +43,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			Linha--;
@@ -56,7 +56,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			Linha--;
@@ -68,7 +68,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			Coluna--;
@@ -79,7 +79,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			Coluna++;
@@ -90,7 +90,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Linha--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 				Linha++;
@@ -102,7 +102,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			Linha++;
@@ -115,7 +115,7 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson);
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			Linha++;
@@ -135,7 +135,7 @@ int main(){
 	MatrizMonstro[3][4] = 1;
 	MatrizMonstro[4][0] = 1;
 	MatrizMonstro[4][2] = 1;
-	contadordemovimento(MatrizMonstro, 4, 0, 0, contadorexterno);
+	contadordemovimento(MatrizMonstro, 4, 0, 0, contadorexterno,2,2);
 	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
 		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
 			cout << MatrizMonstro[linha][coluna] << "\t";
