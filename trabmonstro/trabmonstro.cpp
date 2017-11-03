@@ -46,10 +46,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				MatrizMonstro[Linha][Coluna] = 0;
 				return false;
 			}
-			if (validamove == 1 && contador == 0) {
-				Linha--;
-				MatrizMonstro[Linha][Coluna] = 0;
-			}
 			else {
 				contador--;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -70,11 +66,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				Coluna--;
 				MatrizMonstro[Linha][Coluna] = 0;
 				return true;
-			}
-			if (validamove == 1 && contador == 0) {
-				Linha--;
-				Coluna--;
-				MatrizMonstro[Linha][Coluna] = 0;
 			}
 			else {
 				contador--;
@@ -98,11 +89,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				MatrizMonstro[Linha][Coluna] = 0;
 				return true;
 			}
-			if (validamove == 1 && contador == 0) {
-				Linha--;
-				Coluna++;
-				MatrizMonstro[Linha][Coluna] = 0;
-			}
 			else {
 				contador--;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -123,10 +109,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				MatrizMonstro[Linha][Coluna] = 0;
 				return true;
 			}
-			if (validamove == 1 && contador == 0) {
-				Coluna--;
-				MatrizMonstro[Linha][Coluna] = 0;
-			}
 			else {
 				contador--;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -146,10 +128,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				MatrizMonstro[Linha][Coluna] = 0;
 				return true;
 			}
-			if (validamove == 1 && contador == 0) {
-				Coluna++;
-				MatrizMonstro[Linha][Coluna] = 0;
-			}
 			else {
 				contador--;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -168,10 +146,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				Linha++;
 				MatrizMonstro[Linha][Coluna] = 0;
 				return true;
-			}
-			if (validamove == 1 && contador == 0) {
-				Linha++;
-				MatrizMonstro[Linha][Coluna] = 0;
 			}
 			else {
 				contador--;
@@ -194,11 +168,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				MatrizMonstro[Linha][Coluna] = 0;
 				return true;
 			}
-			if (validamove == 1 && contador == 0) {
-				Linha++;
-				Coluna--;
-				MatrizMonstro[Linha][Coluna] = 0;
-			}
 			else {
 				contador--;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -220,11 +189,6 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 				contador--;
 				MatrizMonstro[Linha][Coluna] = 0;
 				return true;
-			}
-			if (validamove == 1 && contador == 0) {
-				Linha++;
-				Coluna++;
-				MatrizMonstro[Linha][Coluna] = 0;
 			}
 			else {
 				contador--;
