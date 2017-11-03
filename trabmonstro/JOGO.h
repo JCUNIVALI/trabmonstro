@@ -230,6 +230,8 @@ void geramonstro() {
 	e.rapido = false;
 	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, sapo;
 	arauto.vida = 10000;
+	arauto.ataque[0] =aa;
+	arauto.ataque[0].dano *= 15; //PAREI AKIIIIIIIIIIII
 	arungueijo.vida = 500;
 	krugueanciao.vida = 1200;
 	krugue.vida = 500;
@@ -255,7 +257,6 @@ void geramonstro() {
 	Baron.monstros[0] = baron;
 	Baron.monstros[1] = sapo;
 	
-	
 
 
 
@@ -263,10 +264,7 @@ void geramonstro() {
 void jogo() {
 	int MatrizPesonagem[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, contadorexterno = 0, validamove = 0;
 	MatrizPesonagem[2][2] = 1;
-	MatrizMonstro[0][1] = 1;
-	MatrizMonstro[3][4] = 1;
-	MatrizMonstro[4][0] = 1;
-	MatrizMonstro[4][2] = 1;
+
 
 	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
 		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
@@ -282,6 +280,8 @@ void jogo() {
 	contadordemovimento(MatrizMonstro, 4, 0, 0, contadorexterno, 2, 2, false, validamove);
 	cout << endl << contadorexterno << endl << endl;
 	contadordemovimento(MatrizMonstro, 4, 0, 0, contadorexterno, 2, 2, true, validamove);
+	validamove = 0;
+	contadorexterno = 0;
 	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
 		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
 			if (linha == 2 && coluna == 2) {
