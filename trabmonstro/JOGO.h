@@ -1,6 +1,7 @@
 #ifndef JOGO_H
 #define JOGO_H
 #include <iostream>
+#include "conio.h"
 #define TAMANHOMATRIZ 5
 
 using namespace std;
@@ -8,13 +9,16 @@ using namespace std;
 
 bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Linha, int Coluna, int contador, int &contadorexterno, int xperson, int yperson, bool move, int &validamove,int &retornox,int &retornoy) {
 	if (Linha == xperson && Coluna == yperson) {
-		if (contadorexterno == 0) {
+		if (contadorexterno == 0 && move == true) {
+			return false;
+		}
+		if (contadorexterno == 0 && move == false) {
 			contadorexterno = contador;
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
 			return false;
 		}
-		if (contador<contadorexterno) {
+		if (contador<contadorexterno && move == false) {
 			contadorexterno = contador;
 			contador--;
 			MatrizMonstro[Linha][Coluna] = 0;
@@ -238,8 +242,12 @@ struct OPONENTE {
 
 
 void jogo() {
-	int MatrizPesonagem[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 };
-	MatrizPesonagem[2][2] = 1;
+	int MatrizPesonagem[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, pedra = 2;
+	MatrizMonstro[1][1] = pedra;
+	MatrizMonstro[2][3] = pedra;
+	MatrizMonstro[3][2] = pedra;
+	MatrizMonstro[3][3] = pedra;
+	
 	ATAQUE aa, q, w, e;
 	aa.dano = 10;
 	aa.rapido = true;
@@ -366,32 +374,32 @@ void jogo() {
 	OPONENTE Arauto, Pedras, Lobos, Baron,JOGADOR;
 
 	Arauto.linha = 0;
-	Arauto.coluna = 1;
-	MatrizMonstro[0][1] = 1;
+	Arauto.coluna = 0;
+	MatrizMonstro[Arauto.linha][Arauto.coluna] = 1;
 	Arauto.monstros[0] = arauto;
 	Arauto.monstros[1] = arungueijo;
 
-	Pedras.linha = 3;
-	Pedras.coluna = 4;
-	MatrizMonstro[3][4] = 1;
+	Pedras.linha = 1;
+	Pedras.coluna = 3;
+	MatrizMonstro[Pedras.linha][Pedras.coluna] = 1;
 	Pedras.monstros[0] = krugueanciao;
 	Pedras.monstros[1] = krugue;
 
 	Lobos.linha = 4;
 	Lobos.coluna = 0;
-	MatrizMonstro[4][0] = 1;
+	MatrizMonstro[Lobos.linha][Lobos.coluna] = 1;
 	Lobos.monstros[0] = lobomaior;
 	Lobos.monstros[1] = lobo;
 
 	Baron.linha = 4;
-	Baron.coluna = 2;
+	Baron.coluna = 4;
 	MatrizMonstro[Baron.linha][Baron.coluna] = 1;
 	Baron.monstros[0] = baron;
 	Baron.monstros[1] = dragon;
 
 	JOGADOR.linha = 2;
 	JOGADOR.coluna = 2;
-	MatrizPesonagem[JOGADOR.linha][JOGADOR.coluna] = 1;
+	MatrizPesonagem[JOGADOR.linha][JOGADOR.coluna] = 3;
 	JOGADOR.monstros[0] = ashe;
 	JOGADOR.monstros[1] = garen;
 
@@ -400,7 +408,7 @@ void jogo() {
 
 	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
 		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
-			if (linha == 2 && coluna == 2) {
+			if (linha == JOGADOR.linha && coluna == JOGADOR.coluna) {
 				cout << 'X' << "\t";
 			}
 			else {
@@ -409,28 +417,65 @@ void jogo() {
 		}
 		cout << endl;
 	}
-	
-	cout << endl << endl;
-	cout << Arauto.linha << endl << Arauto.coluna << endl;
-	
-	int contadorexterno = 0, validamove = 0;
-	contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, 2, 2, false, validamove,Arauto.linha,Arauto.coluna);
-	contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, 2, 2, true, validamove, Arauto.linha, Arauto.coluna);
+	int round = 0, controlederound = 0;
+	while (true) {
+		if (getchar() == 10) {
+			round++;
+		}
+		if (controlederound != round) {
+			int contadorexterno = 0, validamove = 0;
+			contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Arauto.linha, Arauto.coluna);
+			contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Arauto.linha, Arauto.coluna);
+			contadorexterno = 0;
+			validamove = 0;
+			contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Pedras.linha, Pedras.coluna);
+			contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Pedras.linha, Pedras.coluna);
+			contadorexterno = 0;
+			validamove = 0;
+			contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Lobos.linha, Lobos.coluna);
+			contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Lobos.linha, Lobos.coluna);
+			contadorexterno = 0;
+			validamove = 0;
+			contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Baron.linha, Baron.coluna);
+			contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Baron.linha, Baron.coluna);
+			
+			for (int l = 0; l < TAMANHOMATRIZ; l++) {
+				for (int c = 0; c < TAMANHOMATRIZ; c++) {
+					if (MatrizMonstro[l][c] == 1 && MatrizPesonagem[JOGADOR.linha][JOGADOR.coluna]) {
+						//if (Arauto.linha == l && Arauto.coluna == c) {
+							
+						//}
+						//if (Pedras.linha == l && Pedras.coluna == c) {
 
-	cout << endl << endl;
+						//}
+						//if (Lobos.linha == l && Lobos.coluna == c) {
 
-	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
-		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
-			if (linha == 2 && coluna == 2) {
-				cout << 'X' << "\t";
+						//}
+						//if (Baron.linha == l && Baron.coluna == c) {
+
+						//}
+					}
+				}
 			}
-			else {
-				cout << MatrizMonstro[linha][coluna] << "\t";
+			system("cls");
+			cout << "moveu" << endl;
+			for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
+				for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
+					if (linha == JOGADOR.linha && coluna == JOGADOR.coluna) {
+						//cout << 'X' << "\t";
+					}
+					else {
+						cout << MatrizMonstro[linha][coluna] << "\t";
+					}
+				}
+				cout << endl;
 			}
 		}
-		cout << endl;
+		controlederound = round;
 	}
-	cout <<endl<< Arauto.linha << endl << Arauto.coluna << endl;
+	
+	
+	
 
 
 
