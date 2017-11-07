@@ -250,7 +250,7 @@ void jogo() {
 	e.dano = 25;
 	e.rapido = false;
 
-	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, dragon;
+	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, dragon,ashe,garen;
 
 	arauto.level = 50;
 	arauto.vida = 400 * arauto.level;
@@ -340,7 +340,30 @@ void jogo() {
 	dragon.ataque[3] = e;
 	dragon.ataque[3].dano *= dragon.level / 3;
 
-	OPONENTE Arauto, Pedras, Lobos, Baron;
+	ashe.level = 50;
+	ashe.vida = 60 * ashe.level;
+	ashe.ataque[0] = aa;
+	ashe.ataque[0].dano *= ashe.level*3;
+	ashe.ataque[1] = q;
+	ashe.ataque[1].dano *= ashe.level*3;
+	ashe.ataque[2] = w;
+	ashe.ataque[2].dano *= ashe.level*4;
+	ashe.ataque[3] = e;
+	ashe.ataque[3].dano *= ashe.level*5;
+
+	garen.level = 50;
+	garen.vida = 200 * garen.level;
+	garen.ataque[0] = aa;
+	garen.ataque[0].dano *= garen.level * 2;
+	garen.ataque[1] = q;
+	garen.ataque[1].dano *= garen.level * 2;
+	garen.ataque[2] = w;
+	garen.ataque[2].dano *= garen.level * 3;
+	garen.ataque[3] = e;
+	garen.ataque[3].dano *= garen.level * 3;
+
+
+	OPONENTE Arauto, Pedras, Lobos, Baron,JOGADOR;
 
 	Arauto.linha = 0;
 	Arauto.coluna = 1;
@@ -362,9 +385,17 @@ void jogo() {
 
 	Baron.linha = 4;
 	Baron.coluna = 2;
-	MatrizMonstro[4][2] = 1;
+	MatrizMonstro[Baron.linha][Baron.coluna] = 1;
 	Baron.monstros[0] = baron;
 	Baron.monstros[1] = dragon;
+
+	JOGADOR.linha = 2;
+	JOGADOR.coluna = 2;
+	MatrizPesonagem[JOGADOR.linha][JOGADOR.coluna] = 1;
+	JOGADOR.monstros[0] = ashe;
+	JOGADOR.monstros[1] = garen;
+
+
 
 
 	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
@@ -400,6 +431,8 @@ void jogo() {
 		cout << endl;
 	}
 	cout <<endl<< Arauto.linha << endl << Arauto.coluna << endl;
+
+
 
 
 	system("pause");
