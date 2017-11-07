@@ -6,7 +6,7 @@
 using namespace std;
 
 
-bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Linha, int Coluna, int contador, int &contadorexterno, int xperson, int yperson, bool move, int &validamove) {
+bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Linha, int Coluna, int contador, int &contadorexterno, int xperson, int yperson, bool move, int &validamove,int &retornox,int &retornoy) {
 	if (Linha == xperson && Coluna == yperson) {
 		if (contadorexterno == 0) {
 			contadorexterno = contador;
@@ -33,15 +33,16 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			MatrizMonstro[Linha][Coluna] = 0;
 			return false;
 		}
-
 	}
 	if (Linha<TAMANHOMATRIZ - 1) {
 		if (MatrizMonstro[Linha + 1][Coluna] == 0) {
 			Linha++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove,retornox,retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				contador--;
 				Linha--;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -60,8 +61,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove, retornox, retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				contador--;
 				Linha--;
 				Coluna--;
@@ -82,8 +85,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove, retornox, retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				contador--;
 				Linha--;
 				Coluna++;
@@ -103,8 +108,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove, retornox, retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				contador--;
 				Coluna--;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -122,8 +129,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove, retornox, retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				contador--;
 				Coluna++;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -141,8 +150,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Linha--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove, retornox, retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				contador--;
 				Linha++;
 				MatrizMonstro[Linha][Coluna] = 0;
@@ -161,8 +172,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove, retornox, retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				contador--;
 				Linha++;
 				Coluna--;
@@ -183,8 +196,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
 			contador++;
-			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove);
+			contadordemovimento(MatrizMonstro, Linha, Coluna, contador, contadorexterno, xperson, yperson, move, validamove, retornox, retornoy);
 			if (validamove == 1 && contador == 1) {
+				retornox = Linha;
+				retornoy = Coluna;
 				Linha--;
 				Coluna--;
 				contador--;
@@ -205,66 +220,173 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 	}
 	return false;
 }
+
+struct ATAQUE {
+	bool rapido;
+	int dano;
+};
+struct MONSTRO {
+	int vida;
+	int level;
+	ATAQUE ataque[4];
+};
 struct OPONENTE {
 	MONSTRO monstros[2];
 	int linha;
 	int coluna;
 };
-struct MONSTRO {
-	int vida;
-	ATAQUE ataque[4];
-};
-struct ATAQUE {
-	bool rapido;
-	int dano;
-};
-void geramonstro() {
+
+
+void jogo() {
+	int MatrizPesonagem[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 };
+	MatrizPesonagem[2][2] = 1;
 	ATAQUE aa, q, w, e;
-	aa.dano = 100;
+	aa.dano = 10;
 	aa.rapido = true;
-	q.dano = 100;
+	q.dano = 15;
 	q.rapido = false;
-	w.dano = 100;
+	w.dano = 20;
 	w.rapido = false;
-	e.dano = 100;
+	e.dano = 25;
 	e.rapido = false;
-	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, sapo;
-	arauto.vida = 10000;
-	arauto.ataque[0] =aa;
-	arauto.ataque[0].dano *= 15; //PAREI AKIIIIIIIIIIII
-	arungueijo.vida = 500;
-	krugueanciao.vida = 1200;
-	krugue.vida = 500;
-	lobomaior.vida = 800;
-	lobo.vida = 600;
-	baron.vida = 25000;
-	sapo.vida = 700;
+
+	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, dragon;
+
+	arauto.level = 50;
+	arauto.vida = 400 * arauto.level;
+	arauto.ataque[0] = aa;
+	arauto.ataque[0].dano *= arauto.level;
+	arauto.ataque[1] = q;
+	arauto.ataque[1].dano *= arauto.level;
+	arauto.ataque[2] = w;
+	arauto.ataque[2].dano *= arauto.level;
+	arauto.ataque[3] = e;
+	arauto.ataque[3].dano *= arauto.level;
+
+	arungueijo.level = 50;
+	arungueijo.vida = 10 * arungueijo.level;
+	arungueijo.ataque[0] = aa;
+	arungueijo.ataque[0].dano *= arungueijo.level / 2;
+	arungueijo.ataque[1] = q;
+	arungueijo.ataque[1].dano *= arungueijo.level / 2;
+	arungueijo.ataque[2] = w;
+	arungueijo.ataque[2].dano *= arungueijo.level / 2;
+	arungueijo.ataque[3] = e;
+	arungueijo.ataque[3].dano *= arungueijo.level / 2;
+
+	krugueanciao.level = 50;
+	krugueanciao.vida = 25 * krugueanciao.level;
+	krugueanciao.ataque[0] = aa;
+	krugueanciao.ataque[0].dano *= krugueanciao.level / 3;
+	krugueanciao.ataque[1] = q;
+	krugueanciao.ataque[1].dano *= krugueanciao.level / 3;
+	krugueanciao.ataque[2] = w;
+	krugueanciao.ataque[2].dano *= krugueanciao.level / 3;
+	krugueanciao.ataque[3] = e;
+	krugueanciao.ataque[3].dano *= krugueanciao.level / 3;
+
+	krugue.level = 50;
+	krugue.vida = 10 * krugue.level;
+	krugue.ataque[0] = aa;
+	krugue.ataque[0].dano *= krugue.level / 4;
+	krugue.ataque[1] = q;
+	krugue.ataque[1].dano *= krugue.level / 4;
+	krugue.ataque[2] = w;
+	krugue.ataque[2].dano *= krugue.level / 4;
+	krugue.ataque[3] = e;
+	krugue.ataque[3].dano *= krugue.level / 4;
+
+	lobomaior.level = 50;
+	lobomaior.vida = 16 * lobomaior.level;
+	lobomaior.ataque[0] = aa;
+	lobomaior.ataque[0].dano *= lobomaior.level / 3;
+	lobomaior.ataque[1] = q;
+	lobomaior.ataque[1].dano *= lobomaior.level / 3;
+	lobomaior.ataque[2] = w;
+	lobomaior.ataque[2].dano *= lobomaior.level / 3;
+	lobomaior.ataque[3] = e;
+	lobomaior.ataque[3].dano *= lobomaior.level / 3;
+
+	lobo.level = 50;
+	lobo.vida = 12 * lobo.level;
+	lobo.ataque[0] = aa;
+	lobo.ataque[0].dano *= lobo.level / 4;
+	lobo.ataque[1] = q;
+	lobo.ataque[1].dano *= lobo.level / 4;
+	lobo.ataque[2] = w;
+	lobo.ataque[2].dano *= lobo.level / 4;
+	lobo.ataque[3] = e;
+	lobo.ataque[3].dano *= lobo.level / 4;
+
+	baron.level = 50;
+	baron.vida = 500 * baron.level;
+	baron.ataque[0] = aa;
+	baron.ataque[0].dano *= baron.level * 2;
+	baron.ataque[1] = q;
+	baron.ataque[1].dano *= baron.level * 2;
+	baron.ataque[2] = w;
+	baron.ataque[2].dano *= baron.level * 2;
+	baron.ataque[3] = e;
+	baron.ataque[3].dano *= baron.level * 2;
+
+	dragon.level = 50;
+	dragon.vida = 14 * dragon.level;
+	dragon.ataque[0] = aa;
+	dragon.ataque[0].dano *= dragon.level / 3;
+	dragon.ataque[1] = q;
+	dragon.ataque[1].dano *= dragon.level / 3;
+	dragon.ataque[2] = w;
+	dragon.ataque[2].dano *= dragon.level / 3;
+	dragon.ataque[3] = e;
+	dragon.ataque[3].dano *= dragon.level / 3;
+
 	OPONENTE Arauto, Pedras, Lobos, Baron;
+
 	Arauto.linha = 0;
 	Arauto.coluna = 1;
+	MatrizMonstro[0][1] = 1;
 	Arauto.monstros[0] = arauto;
 	Arauto.monstros[1] = arungueijo;
+
 	Pedras.linha = 3;
 	Pedras.coluna = 4;
+	MatrizMonstro[3][4] = 1;
 	Pedras.monstros[0] = krugueanciao;
 	Pedras.monstros[1] = krugue;
+
 	Lobos.linha = 4;
 	Lobos.coluna = 0;
+	MatrizMonstro[4][0] = 1;
 	Lobos.monstros[0] = lobomaior;
 	Lobos.monstros[1] = lobo;
+
 	Baron.linha = 4;
 	Baron.coluna = 2;
+	MatrizMonstro[4][2] = 1;
 	Baron.monstros[0] = baron;
-	Baron.monstros[1] = sapo;
+	Baron.monstros[1] = dragon;
+
+
+	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
+		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
+			if (linha == 2 && coluna == 2) {
+				cout << 'X' << "\t";
+			}
+			else {
+				cout << MatrizMonstro[linha][coluna] << "\t";
+			}
+		}
+		cout << endl;
+	}
 	
+	cout << endl << endl;
+	cout << Arauto.linha << endl << Arauto.coluna << endl;
+	
+	int contadorexterno = 0, validamove = 0;
+	contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, 2, 2, false, validamove,Arauto.linha,Arauto.coluna);
+	contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, 2, 2, true, validamove, Arauto.linha, Arauto.coluna);
 
-
-
-}
-void jogo() {
-	int MatrizPesonagem[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, contadorexterno = 0, validamove = 0;
-	MatrizPesonagem[2][2] = 1;
-
+	cout << endl << endl;
 
 	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
 		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
@@ -277,24 +399,11 @@ void jogo() {
 		}
 		cout << endl;
 	}
-	contadordemovimento(MatrizMonstro, 4, 0, 0, contadorexterno, 2, 2, false, validamove);
-	cout << endl << contadorexterno << endl << endl;
-	contadordemovimento(MatrizMonstro, 4, 0, 0, contadorexterno, 2, 2, true, validamove);
-	validamove = 0;
-	contadorexterno = 0;
-	for (int linha = 0; linha < TAMANHOMATRIZ; linha++) {
-		for (int coluna = 0; coluna < TAMANHOMATRIZ; coluna++) {
-			if (linha == 2 && coluna == 2) {
-				cout << 'X' << "\t";
-			}
-			else {
-				cout << MatrizMonstro[linha][coluna] << "\t";
-			}
-		}
-		cout << endl;
-	}
+	cout <<endl<< Arauto.linha << endl << Arauto.coluna << endl;
+
+
 	system("pause");
-	geramonstro();
+	
 
 
 
