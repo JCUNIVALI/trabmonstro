@@ -5,6 +5,6 @@
 using namespace std;
 
 int main(){
-	jogo();
+	inicia();
     return 0;
 }

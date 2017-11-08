@@ -7,7 +7,10 @@
 
 using namespace std;
 
+//void batalha(OPONENTE Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE JOGADOR, int LinhaJogador, int ColunaJogador, int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ]) {
+//	srand(time(NULL));
 
+//}
 bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Linha, int Coluna, int contador, int &contadorexterno, int xperson, int yperson, bool move, int &validamove,int &retornox,int &retornoy) {
 	if (Linha == xperson && Coluna == yperson) {
 		if (contadorexterno == 0 && move == false) {
@@ -289,11 +292,8 @@ struct OPONENTE {
 	int linha;
 	int coluna;
 };
-
-
-void jogo() {
-	int MatrizPersonagem[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 };
-	
+void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPONENTE JOGADOR);
+void inicia() {
 	ATAQUE aa, q, w, e;
 	aa.dano = 10;
 	aa.rapido = true;
@@ -304,7 +304,7 @@ void jogo() {
 	e.dano = 25;
 	e.rapido = false;
 
-	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, dragon,ashe,garen;
+	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, dragon, ashe, garen;
 
 	arauto.level = 50;
 	arauto.vida = 400 * arauto.level;
@@ -397,13 +397,13 @@ void jogo() {
 	ashe.level = 50;
 	ashe.vida = 60 * ashe.level;
 	ashe.ataque[0] = aa;
-	ashe.ataque[0].dano *= ashe.level*3;
+	ashe.ataque[0].dano *= ashe.level * 3;
 	ashe.ataque[1] = q;
-	ashe.ataque[1].dano *= ashe.level*3;
+	ashe.ataque[1].dano *= ashe.level * 3;
 	ashe.ataque[2] = w;
-	ashe.ataque[2].dano *= ashe.level*4;
+	ashe.ataque[2].dano *= ashe.level * 4;
 	ashe.ataque[3] = e;
-	ashe.ataque[3].dano *= ashe.level*5;
+	ashe.ataque[3].dano *= ashe.level * 5;
 
 	garen.level = 50;
 	garen.vida = 200 * garen.level;
@@ -416,37 +416,43 @@ void jogo() {
 	garen.ataque[3] = e;
 	garen.ataque[3].dano *= garen.level * 3;
 
-	OPONENTE Arauto, Pedras, Lobos, Baron,JOGADOR;
+	OPONENTE Arauto, Pedras, Lobos, Baron, JOGADOR;
 
 	Arauto.linha = 0;
 	Arauto.coluna = 0;
-	MatrizMonstro[Arauto.linha][Arauto.coluna] = 1;
 	Arauto.monstros[0] = arauto;
 	Arauto.monstros[1] = arungueijo;
 
 	Pedras.linha = 1;
 	Pedras.coluna = 3;
-	MatrizMonstro[Pedras.linha][Pedras.coluna] = 1;
 	Pedras.monstros[0] = krugueanciao;
 	Pedras.monstros[1] = krugue;
 
 	Lobos.linha = 4;
 	Lobos.coluna = 0;
-	MatrizMonstro[Lobos.linha][Lobos.coluna] = 1;
 	Lobos.monstros[0] = lobomaior;
 	Lobos.monstros[1] = lobo;
 
 	Baron.linha = 4;
 	Baron.coluna = 4;
-	MatrizMonstro[Baron.linha][Baron.coluna] = 1;
 	Baron.monstros[0] = baron;
 	Baron.monstros[1] = dragon;
 
 	JOGADOR.linha = 2;
 	JOGADOR.coluna = 2;
-	MatrizPersonagem[JOGADOR.linha][JOGADOR.coluna] = 1;
 	JOGADOR.monstros[0] = ashe;
 	JOGADOR.monstros[1] = garen;
+
+	jogo(Arauto, Pedras, Lobos, Baron, JOGADOR);
+}
+
+void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPONENTE JOGADOR) {
+	int MatrizPersonagem[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 }, MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ] = { 0 };
+	MatrizMonstro[Arauto.linha][Arauto.coluna] = 1;
+	MatrizMonstro[Pedras.linha][Pedras.coluna] = 1;
+	MatrizMonstro[Lobos.linha][Lobos.coluna] = 1;
+	MatrizMonstro[Baron.linha][Baron.coluna] = 1;
+	MatrizPersonagem[JOGADOR.linha][JOGADOR.coluna] = 1;
 
 	cout << "Round 0" << endl;
 	for (int l = 0; l < TAMANHOMATRIZ; l++) {
@@ -500,15 +506,20 @@ void jogo() {
 			} while (monstro < 4);
 			if (Lobos.linha == JOGADOR.linha && Lobos.coluna == JOGADOR.coluna) {
 				// chama uma batalha passando os monstros que tao no "Lobos" contra o jogador
+				//batalha(Lobos, Lobos.linha, Lobos.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna,MatrizMonstro);
+
 			}
 			if (Baron.linha == JOGADOR.linha && Baron.coluna == JOGADOR.coluna) {
 				// chama uma batalha passando os monstros que tao no "Baron" contra o jogador
+				//batalha(Baron, Baron.linha, Baron.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna, MatrizMonstro);
 			}
 			if (Arauto.linha == JOGADOR.linha && Arauto.coluna == JOGADOR.coluna) {
 				// chama uma batalha passando os monstros que tao no "Arauto" contra o jogador
+				//batalha(Arauto, Arauto.linha, Arauto.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna, MatrizMonstro);
 			}
 			if (Pedras.linha == JOGADOR.linha && Pedras.coluna == JOGADOR.coluna) {
 				// chama uma batalha passando os monstros que tao no "Pedras" contra o jogador
+				//batalha(Pedras, Pedras.linha, Pedras.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna, MatrizMonstro);
 			}
 			system("cls");
 			cout << "Round " <<round<< endl;
