@@ -76,21 +76,10 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 		}
 		if (contador == contadorexterno && move == true) {
 			validamove = 1;
-			if (contador == 1) {
-				retornox = Linha;
-				retornoy = Coluna;
-				contador--;
-				move = false;
-				MatrizMonstro[Linha][Coluna] = 0;
-				return false;
-			}
-			else {
-				contador--;
-				MatrizMonstro[Linha][Coluna] = 0;
-				move = false;
-				return false;
-			}
-
+			contador--;
+			MatrizMonstro[Linha][Coluna] = 0;
+			move = false;
+			return false;
 		}
 		else {
 			contador--;
@@ -103,6 +92,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			MatrizMonstro[Linha][Coluna] = 0;
 			Linha++;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha + 1][Coluna] == 0) {
@@ -131,6 +122,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Linha++;
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha + 1][Coluna + 1] == 0) {
@@ -162,6 +155,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Linha++;
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha + 1][Coluna - 1] == 0) {
@@ -192,6 +187,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			MatrizMonstro[Linha][Coluna] = 0;
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha][Coluna + 1] == 0) {
@@ -219,6 +216,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			MatrizMonstro[Linha][Coluna] = 0;
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha][Coluna - 1] == 0) {
@@ -246,6 +245,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			MatrizMonstro[Linha][Coluna] = 0;
 			Linha--;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha - 1][Coluna] == 0) {
@@ -274,6 +275,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Linha--;
 			Coluna++;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha - 1][Coluna + 1] == 0) {
@@ -305,6 +308,8 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 			Linha--;
 			Coluna--;
 			MatrizMonstro[Linha][Coluna] = 1;
+			retornox = Linha;
+			retornoy = Coluna;
 			return false;
 		}
 		else if (MatrizMonstro[Linha - 1][Coluna - 1] == 0) {
