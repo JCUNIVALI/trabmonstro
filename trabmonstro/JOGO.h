@@ -3,7 +3,7 @@
 #include <iostream>
 #include <time.h>
 #include <string>
-#include <conio.h>
+#include "conio.h"
 #define TAMANHOMATRIZ 5
 
 using namespace std;
@@ -25,50 +25,118 @@ struct OPONENTE {
 };
 void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPONENTE JOGADOR);
 
-void batalha(OPONENTE Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE JOGADOR, int LinhaJogador, int ColunaJogador, int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ]) {
+void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE JOGADOR, int LinhaJogador, int ColunaJogador, int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ]) {
 	srand(time(NULL));
-	int morto = 0, contador = 0, jogadormove = 0, aplicadanojogador = 0, aplicadanomonstro = 0, opcao, ataqueQ = 0, ataqueW = 0, ataqueE = 0;
-	MONSTRO player, monstro=Monstro.monstros[0];
-	cout << "DENTRODABATALHA!!!!!!!!!!!!!!!!!!!!!!";
+	int morto = 0, contador = 0, jogadormove = 0, aplicadanojogador[3] = { 0 }, aplicadanomonstro[3] = { 0 }, opcao, ataqueQ = 0, ataqueW = 0, ataqueE = 0;
+	int danojogador[3] = { 0 }, danomonstro[3] = { 0 }, monstro = 0;
+	MONSTRO player;
+	cout << "INICIO DA BATALHA!!!!!!!!!!!!!!!!!!!!!!";
 	while (morto == 0) {
 		if (contador == 0) {
 			do {
 				cout << "Escolha seu champ: " << endl << "Ashe [0]" << endl << "Garen [1]" << endl;
-				cin >> opcao;
+				opcao=_getch()-48;
 				player = JOGADOR.monstros[opcao];
 				system("cls");
 			} while (opcao != 0 && opcao != 1);
 			contador++;
 		}
-		cout << "JOGADOR:\t" << player.nome<<"\t"<<player.vida << endl;
-		cout << "OPONENTE:\t"<<monstro.nome << "\t" << monstro.vida << endl;
-		if (getchar() == 97) {//tecla a
-			monstro.vida -= JOGADOR.monstros[opcao].ataque[0].dano;
-			jogadormove++;
+		cout << "JOGADOR:\t" << player.nome<<"\t\t\tVida: "<<player.vida << endl;
+		cout << "OPONENTE:\t"<< Monstro.monstros[monstro].nome << "\t\tVida: " << Monstro.monstros[monstro].vida << endl;
+		cout << "Ecolha seu ataque: " << endl << "A : Auto-Ataque\t\t\tDano : " << player.ataque[0].dano << endl;
+		cout <<  "Q : Acerto Decisivo\t\tDano : " << player.ataque[1].dano << endl;
+		cout <<  "W : Julgamento\t\t\tDano : " << player.ataque[2].dano << endl;
+		cout <<  "E : Poder do Grao-Mestre\tDano : " << player.ataque[3].dano << endl;
+		int tecla = 0;
+		if (jogadormove==0) {
+			tecla = _getch();
+			if (tecla == 97) {//tecla a
+				Monstro.monstros[monstro].vida -= player.ataque[0].dano;
+				jogadormove++;
+			}
+			if (tecla == 113 && ataqueQ < 4) {//tecla q
+				Monstro.monstros[monstro].vida -= (player.ataque[1].dano) / 2;
+				aplicadanojogador[0] += (player.ataque[1].dano) / 2;
+				danojogador[0]++;
+				jogadormove++;
+			}
+			if (tecla == 119 && ataqueW < 4) {//tecla w
+				Monstro.monstros[monstro].vida -= (player.ataque[2].dano) / 2;
+				aplicadanojogador[1] += (player.ataque[2].dano) / 2;
+				danojogador[1]++;
+				jogadormove++;
+			}
+			if (tecla == 101 && ataqueE < 4) {//tecla e
+				Monstro.monstros[monstro].vida -= (player.ataque[3].dano) / 2;
+				aplicadanojogador[2] += (player.ataque[3].dano) / 2;
+				danojogador[2]++;
+				jogadormove++;
+			}
+		}
+		for (int x = 0; x < 3; x++) {
+			if (danomonstro[x] == 1) {
+				danomonstro[x]++;
+			}
+		}
+		if (jogadormove >= 1) {
+			for (int x = 0; x < 3; x++) {
+				if (aplicadanojogador[x] > 0 && danojogador[x]>=2) {
+					Monstro.monstros[monstro].vida -= aplicadanojogador[x];
+					aplicadanojogador[x]--;
+				}
+			}
+			jogadormove--;
+			int ataquemonstro=rand() % 4;
+			cout << ataquemonstro << "ATAQUE DO MONSTRO"<<endl;
+			if (ataquemonstro == 0) {
+				cout << "entoru 0" << endl;
+				player.vida -= Monstro.monstros[monstro].ataque[0].dano;
+			}
+			if (ataquemonstro == 1) {
+				cout << "entoru 1" << endl;
+				player.vida -= (Monstro.monstros[monstro].ataque[1].dano)/2;
+				aplicadanomonstro[0] += (Monstro.monstros[monstro].ataque[1].dano) / 2;
+				danomonstro[0]++;
+			}
+			if (ataquemonstro == 2) {
+				cout << "entoru 2" << endl;
+				player.vida -= (Monstro.monstros[monstro].ataque[2].dano)/2;
+				aplicadanomonstro[1] += (Monstro.monstros[monstro].ataque[2].dano) / 2;
+				danomonstro[1]++;
+			}
+			if (ataquemonstro == 3) {
+				cout << "entoru 3" << endl;
+				player.vida -= (Monstro.monstros[monstro].ataque[3].dano)/2;
+				aplicadanomonstro[2] += (Monstro.monstros[monstro].ataque[3].dano) / 2;
+				danomonstro[2]++;
+			}
 
-		}
-		if (getchar() == 113 && ataqueQ<4) {//tecla q
-			monstro.vida -=(JOGADOR.monstros[opcao].ataque[1].dano)/2;
-			aplicadanojogador += (JOGADOR.monstros[opcao].ataque[1].dano) / 2;
-			jogadormove++;
-		}
-		if (getchar() == 119 && ataqueW<4) {//tecla w
-			monstro.vida -= (JOGADOR.monstros[opcao].ataque[2].dano) / 2;
-			aplicadanojogador += (JOGADOR.monstros[opcao].ataque[2].dano) / 2;
-			jogadormove++;
-		}
-		if (getchar() == 101 && ataqueE<4) {//tecla e
-			monstro.vida -= (JOGADOR.monstros[opcao].ataque[3].dano) / 2;
-			aplicadanojogador += (JOGADOR.monstros[opcao].ataque[3].dano) / 2;
-			jogadormove++;
-		}
-		if (jogadormove == 1) {
-			monstro.vida -= aplicadanojogador;
-			jogadormove = 0;
-			
 			//fazer a batalha em si aki..
 		}
-		system("cls");
+		if (player.vida <= 0) {
+			if (opcao==0 && JOGADOR.monstros[1].vida>0)
+				opcao++;
+			if (opcao == 1 && JOGADOR.monstros[0].vida>0)
+				opcao--;
+			else {
+				cout << "-------------------------GAMEOVER--------------";
+				getchar();
+			}
+		}
+		if (Monstro.monstros[monstro].vida <= 0) {
+			if (monstro==0)
+				monstro++;
+			else {
+				morto = 1;
+
+			}
+		}
+		for (int x = 0; x < 3; x++) {
+			if (danojogador[x] == 1) {
+				danojogador[x]++;
+			}
+		}
+		//system("cls");
 	}
 }
 bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Linha, int Coluna, int contador, int &contadorexterno, int xperson, int yperson, bool move, int &validamove,int &retornox,int &retornoy) {
@@ -546,46 +614,70 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 			round++;
 		if (controlederound != round) {
 			cout << "Processando...Aguarde.";
-			int monstro = 0;
+			int monstro = 0, lobosmorto = 0, baronmorto = 0, arautomorto = 0, pedrasmorto = 0;
 			do{
 				int contadorexterno = 0, validamove = 0;
 				switch (monstro)
 				{
 				case 0 :
-					contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Lobos.linha, Lobos.coluna); //baixo esquerda
-					contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Lobos.linha, Lobos.coluna);
-					cout << ".";
+					if (Lobos.monstros[1].vida > 0) {
+						contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Lobos.linha, Lobos.coluna); //baixo esquerda
+						contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Lobos.linha, Lobos.coluna);
+						cout << ".";
+					}
+					else {
+						lobosmorto++;
+						MatrizMonstro[Lobos.linha][Lobos.coluna] = 0;
+					}
 					break;
 				case 1:
-					contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Baron.linha, Baron.coluna);
-					contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Baron.linha, Baron.coluna);
-					cout << ".";
+					if (Baron.monstros[1].vida > 0) {
+						contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Baron.linha, Baron.coluna);
+						contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Baron.linha, Baron.coluna);
+						cout << ".";
+					}
+					else {
+						baronmorto++;
+						MatrizMonstro[Baron.linha][Baron.coluna] = 0;
+					}
 					break;
 				case 2:
-					contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Arauto.linha, Arauto.coluna); //cima esquerda
-					contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Arauto.linha, Arauto.coluna);
-					cout << ".";
+					if (Arauto.monstros[1].vida > 0) {
+						contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Arauto.linha, Arauto.coluna); //cima esquerda
+						contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Arauto.linha, Arauto.coluna);
+						cout << ".";
+					}
+					else {
+						arautomorto++;
+						MatrizMonstro[Arauto.linha][Arauto.coluna] = 0;
+					}
 					break;
 				case 3:
-					contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Pedras.linha, Pedras.coluna); //direita cima
-					contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Pedras.linha, Pedras.coluna);
-					cout << ".";
+					if (Pedras.monstros[1].vida > 0) {
+						contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Pedras.linha, Pedras.coluna); //direita cima
+						contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Pedras.linha, Pedras.coluna);
+						cout << ".";
+					}
+					else {
+						pedrasmorto++;
+						MatrizMonstro[Pedras.linha][Pedras.coluna] = 0;
+					}
 					break;
 				default:
 					break;
 				}
 				monstro++;
 			} while (monstro < 4);
-			if (Lobos.linha == JOGADOR.linha && Lobos.coluna == JOGADOR.coluna) {
+			if (Lobos.linha == JOGADOR.linha && Lobos.coluna == JOGADOR.coluna && lobosmorto==0) {
 				batalha(Lobos, Lobos.linha, Lobos.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna,MatrizMonstro);
 			}
-			if (Baron.linha == JOGADOR.linha && Baron.coluna == JOGADOR.coluna) {
+			if (Baron.linha == JOGADOR.linha && Baron.coluna == JOGADOR.coluna && baronmorto==0) {
 				batalha(Baron, Baron.linha, Baron.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna, MatrizMonstro);
 			}
-			if (Arauto.linha == JOGADOR.linha && Arauto.coluna == JOGADOR.coluna) {
+			if (Arauto.linha == JOGADOR.linha && Arauto.coluna == JOGADOR.coluna && arautomorto==0) {
 				batalha(Arauto, Arauto.linha, Arauto.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna, MatrizMonstro);
 			}
-			if (Pedras.linha == JOGADOR.linha && Pedras.coluna == JOGADOR.coluna) {
+			if (Pedras.linha == JOGADOR.linha && Pedras.coluna == JOGADOR.coluna && pedrasmorto==0) {
 				batalha(Pedras, Pedras.linha, Pedras.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna, MatrizMonstro);
 			}
 			system("cls");
