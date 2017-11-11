@@ -104,6 +104,7 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 			}
 		}
 		if (JOGADOR.monstros[opcao].vida <= 0) {
+			cout << "ENTROU NA VIDA";
 			if (opcao==0 && JOGADOR.monstros[1].vida>0)
 				opcao++;
 			if (opcao == 1 && JOGADOR.monstros[0].vida>0)
@@ -117,6 +118,7 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 			if (monstro==0)
 				monstro++;
 			else {
+				MatrizMonstro[LinhaMonstro][ColunaMonstro] = 0;
 				morto = 1;
 
 			}
