@@ -608,47 +608,55 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 				switch (monstro)
 				{
 				case 0 :
-					if (Lobos.monstros[1].vida > 0) {
-						contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Lobos.linha, Lobos.coluna); //baixo esquerda
-						contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Lobos.linha, Lobos.coluna);
-						cout << ".";
-					}
-					else {
-						lobosmorto++;
-						MatrizMonstro[Lobos.linha][Lobos.coluna] = 0;
+					if (lobosmorto == 0){
+						if (Lobos.monstros[1].vida > 0) {
+							contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Lobos.linha, Lobos.coluna); //baixo esquerda
+							contadordemovimento(MatrizMonstro, Lobos.linha, Lobos.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Lobos.linha, Lobos.coluna);
+							cout << ".";
+						}
+						else {
+							lobosmorto++;
+							MatrizMonstro[Lobos.linha][Lobos.coluna] = 0;
+						}
 					}
 					break;
 				case 1:
-					if (Baron.monstros[1].vida > 0) {
-						contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Baron.linha, Baron.coluna);
-						contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Baron.linha, Baron.coluna);
-						cout << ".";
-					}
-					else {
-						baronmorto++;
-						MatrizMonstro[Baron.linha][Baron.coluna] = 0;
+					if (baronmorto == 0) {
+						if (Baron.monstros[1].vida > 0) {
+							contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Baron.linha, Baron.coluna);
+							contadordemovimento(MatrizMonstro, Baron.linha, Baron.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Baron.linha, Baron.coluna);
+							cout << ".";
+						}
+						else {
+							baronmorto++;
+							MatrizMonstro[Baron.linha][Baron.coluna] = 0;
+						}
 					}
 					break;
 				case 2:
-					if (Arauto.monstros[1].vida > 0) {
-						contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Arauto.linha, Arauto.coluna); //cima esquerda
-						contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Arauto.linha, Arauto.coluna);
-						cout << ".";
-					}
-					else {
-						arautomorto++;
-						MatrizMonstro[Arauto.linha][Arauto.coluna] = 0;
+					if (arautomorto == 0) {
+						if (Arauto.monstros[1].vida > 0) {
+							contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Arauto.linha, Arauto.coluna); //cima esquerda
+							contadordemovimento(MatrizMonstro, Arauto.linha, Arauto.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Arauto.linha, Arauto.coluna);
+							cout << ".";
+						}
+						else {
+							arautomorto++;
+							MatrizMonstro[Arauto.linha][Arauto.coluna] = 0;
+						}
 					}
 					break;
 				case 3:
-					if (Pedras.monstros[1].vida > 0) {
-						contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Pedras.linha, Pedras.coluna); //direita cima
-						contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Pedras.linha, Pedras.coluna);
-						cout << ".";
-					}
-					else {
-						pedrasmorto++;
-						MatrizMonstro[Pedras.linha][Pedras.coluna] = 0;
+					if (pedrasmorto == 0) {
+						if (Pedras.monstros[1].vida > 0) {
+							contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, false, validamove, Pedras.linha, Pedras.coluna); //direita cima
+							contadordemovimento(MatrizMonstro, Pedras.linha, Pedras.coluna, 0, contadorexterno, JOGADOR.linha, JOGADOR.coluna, true, validamove, Pedras.linha, Pedras.coluna);
+							cout << ".";
+						}
+						else {
+							pedrasmorto++;
+							MatrizMonstro[Pedras.linha][Pedras.coluna] = 0;
+						}
 					}
 					break;
 				default:
