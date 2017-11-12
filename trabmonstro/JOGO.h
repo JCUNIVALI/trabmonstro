@@ -28,7 +28,7 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &JOGADOR, int LinhaJogador, int ColunaJogador, int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ]) {
 	srand(time(NULL));
 	int morto = 0, contador = 0, jogadormove = 0, aplicadanojogador[3] = { 0 }, aplicadanomonstro[3] = { 0 }, opcao, ataqueQ = 0, ataqueW = 0, ataqueE = 0;
-	int danojogador[3] = { 0 }, danomonstro[3] = { 0 }, monstro = 0, ControladorJogador[3] = { 0 }, ControladorMonstro[3] = { 0 }, superpotedevida = 4;
+	int monstro = 0, ControladorJogador[3] = { 0 }, ControladorMonstro[3] = { 0 }, superpotedevida = 4;
 	cout << "INICIO DA BATALHA!!!!!!!!!!!!!!!!!!!!!!";
 	while (morto == 0) {
 		if (contador == 0) {
@@ -118,10 +118,18 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 		}
 		if (JOGADOR.monstros[opcao].vida <= 0) {
 			cout << "ENTROU NA VIDA";
-			if (opcao==0 && JOGADOR.monstros[1].vida>0)
+			if (opcao == 0 && JOGADOR.monstros[1].vida > 0) {
 				opcao++;
-			if (opcao == 1 && JOGADOR.monstros[0].vida>0)
+				ataqueQ = 0;
+				ataqueW = 0;
+				ataqueE = 0;
+			}
+			if (opcao == 1 && JOGADOR.monstros[0].vida > 0) {
 				opcao--;
+				ataqueQ = 0;
+				ataqueW = 0;
+				ataqueE = 0;
+			}
 			else if (JOGADOR.monstros[0].vida<=0 && JOGADOR.monstros[1].vida<=0) {
 				cout << "-------------------------GAMEOVER--------------";
 				getchar();
