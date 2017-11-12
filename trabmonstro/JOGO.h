@@ -10,6 +10,7 @@ using namespace std;
 
 struct ATAQUE {
 	int dano;
+	int cd;
 };
 struct MONSTRO {
 	int vida;
@@ -27,59 +28,71 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &JOGADOR, int LinhaJogador, int ColunaJogador, int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ]) {
 	srand(time(NULL));
 	int morto = 0, contador = 0, jogadormove = 0, aplicadanojogador[3] = { 0 }, aplicadanomonstro[3] = { 0 }, opcao, ataqueQ = 0, ataqueW = 0, ataqueE = 0;
-	int danojogador[3] = { 0 }, danomonstro[3] = { 0 }, monstro = 0;
+	int danojogador[3] = { 0 }, danomonstro[3] = { 0 }, monstro = 0, ControladorJogador[3] = { 0 }, ControladorMonstro[3] = { 0 }, superpotedevida = 4;
 	cout << "INICIO DA BATALHA!!!!!!!!!!!!!!!!!!!!!!";
 	while (morto == 0) {
 		if (contador == 0) {
 			do {
 				cout << "Escolha seu champ: " << endl << "Ashe [0]" << endl << "Garen [1]" << endl;
-				opcao=_getch()-48;
+				opcao = _getch() - 48;
 				system("cls");
 			} while (opcao != 0 && opcao != 1);
-			contador++;
 		}
-		cout << "JOGADOR:\t" << JOGADOR.monstros[opcao].nome<<"\t\t\tVida: "<< JOGADOR.monstros[opcao].vida << endl;
-		cout << "OPONENTE:\t"<< Monstro.monstros[monstro].nome << "\t\tVida: " << Monstro.monstros[monstro].vida << endl;
+		cout << "ROUND: " << contador << endl;
+		cout << "JOGADOR:\t" << JOGADOR.monstros[opcao].nome << "\t\t\tVida: " << JOGADOR.monstros[opcao].vida << endl;
+		cout << "OPONENTE:\t" << Monstro.monstros[monstro].nome << "\t\tVida: " << Monstro.monstros[monstro].vida << endl;
 		cout << "Ecolha seu ataque: " << endl << "A : Auto-Ataque\t\t\tDano : " << JOGADOR.monstros[opcao].ataque[0].dano << endl;
-		cout <<  "Q : Acerto Decisivo\t\tDano : " << JOGADOR.monstros[opcao].ataque[1].dano << endl;
-		cout <<  "W : Julgamento\t\t\tDano : " << JOGADOR.monstros[opcao].ataque[2].dano << endl;
-		cout <<  "E : Poder do Grao-Mestre\tDano : " << JOGADOR.monstros[opcao].ataque[3].dano << endl;
+		cout << "Q : Acerto Decisivo\t\tDano : " << JOGADOR.monstros[opcao].ataque[1].dano << endl;
+		cout << "W : Julgamento\t\t\tDano : " << JOGADOR.monstros[opcao].ataque[2].dano << endl;
+		cout << "E : Poder do Grao-Mestre\tDano : " << JOGADOR.monstros[opcao].ataque[3].dano << endl;
+		cout << "V : Super-Pote de VIDA\t\t\REGENERA: 5k de vida" << endl;
+
+	
 		int tecla = 0;
-		if (jogadormove==0) {
+		for (int i = 0; i < 3; i++) {
+			if (ControladorMonstro[i] = contador) {
+				JOGADOR.monstros[monstro].vida -= aplicadanomonstro[i];
+				aplicadanomonstro[i] = 0;
+				ControladorMonstro[i] = 0;
+			}
+		}
+		do {
 			tecla = _getch();
 			if (tecla == 97) {//tecla a
 				Monstro.monstros[monstro].vida -= JOGADOR.monstros[opcao].ataque[0].dano;
 				jogadormove++;
 			}
-			if (tecla == 113 && ataqueQ < 4) {//tecla q
+			if (tecla == 113 && ataqueQ < 4 && ControladorJogador[0] == 0) {//tecla q
 				Monstro.monstros[monstro].vida -= (JOGADOR.monstros[opcao].ataque[1].dano) / 2;
 				aplicadanojogador[0] += (JOGADOR.monstros[opcao].ataque[1].dano) / 2;
-				danojogador[0]++;
+				ControladorJogador[0] = contador + 1;
 				jogadormove++;
 			}
-			if (tecla == 119 && ataqueW < 4) {//tecla w
+			if (tecla == 119 && ataqueW < 4 && ControladorJogador[1] == 0) {//tecla w
 				Monstro.monstros[monstro].vida -= (JOGADOR.monstros[opcao].ataque[2].dano) / 2;
 				aplicadanojogador[1] += (JOGADOR.monstros[opcao].ataque[2].dano) / 2;
-				danojogador[1]++;
+				ControladorJogador[1] = contador + 1;
 				jogadormove++;
 			}
-			if (tecla == 101 && ataqueE < 4) {//tecla e
+			if (tecla == 101 && ataqueE < 4 && ControladorJogador[2] == 0) {//tecla e
 				Monstro.monstros[monstro].vida -= (JOGADOR.monstros[opcao].ataque[3].dano) / 2;
 				aplicadanojogador[2] += (JOGADOR.monstros[opcao].ataque[3].dano) / 2;
-				danojogador[2]++;
+				ControladorJogador[2] = contador + 1;
 				jogadormove++;
 			}
-		}
-		for (int x = 0; x < 3; x++) {
-			if (danomonstro[x] == 1) {
-				danomonstro[x]++;
+			if (tecla == 118 && superpotedevida>0) {
+				JOGADOR.monstros[opcao].vida += 5000;
+				superpotedevida = superpotedevida - 1;
+				cout << "SUPER POTE DE VIDA USADO. \tVIDA: " << JOGADOR.monstros[opcao].vida << endl;
+				cout << "POTES RESTANTES: " << superpotedevida << endl;
 			}
-		}
+		} while (jogadormove == 0);
 		if (jogadormove >= 1) {
-			for (int x = 0; x < 3; x++) {
-				if (aplicadanojogador[x] > 0 && danojogador[x]>=2) {
-					Monstro.monstros[monstro].vida -= aplicadanojogador[x];
-					aplicadanojogador[x]--;
+			for (int i = 0; i < 3; i++) {
+				if (ControladorJogador[i] = contador) {
+					Monstro.monstros[monstro].vida -= aplicadanojogador[i];
+					aplicadanojogador[i] = 0;
+					ControladorJogador[i] = 0;
 				}
 			}
 			jogadormove--;
@@ -90,17 +103,17 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 			if (ataquemonstro == 1) {
 				JOGADOR.monstros[opcao].vida -= (Monstro.monstros[monstro].ataque[1].dano)/2;
 				aplicadanomonstro[0] += (Monstro.monstros[monstro].ataque[1].dano) / 2;
-				danomonstro[0]++;
+				ControladorMonstro[0] = contador + 1;
 			}
 			if (ataquemonstro == 2) {
 				JOGADOR.monstros[opcao].vida -= (Monstro.monstros[monstro].ataque[2].dano)/2;
 				aplicadanomonstro[1] += (Monstro.monstros[monstro].ataque[2].dano) / 2;
-				danomonstro[1]++;
+				ControladorMonstro[1] = contador + 1;
 			}
 			if (ataquemonstro == 3) {
 				JOGADOR.monstros[opcao].vida -= (Monstro.monstros[monstro].ataque[3].dano)/2;
 				aplicadanomonstro[2] += (Monstro.monstros[monstro].ataque[3].dano) / 2;
-				danomonstro[2]++;
+				ControladorMonstro[2] = contador + 1;
 			}
 		}
 		if (JOGADOR.monstros[opcao].vida <= 0) {
@@ -109,7 +122,7 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 				opcao++;
 			if (opcao == 1 && JOGADOR.monstros[0].vida>0)
 				opcao--;
-			else {
+			else if (JOGADOR.monstros[0].vida<=0 && JOGADOR.monstros[1].vida<=0) {
 				cout << "-------------------------GAMEOVER--------------";
 				getchar();
 			}
@@ -123,11 +136,17 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 
 			}
 		}
-		for (int x = 0; x < 3; x++) {
-			if (danojogador[x] == 1) {
-				danojogador[x]++;
-			}
+		cout << "JOGADOR:\t" << JOGADOR.monstros[opcao].nome << "\t\t\tVida: " << JOGADOR.monstros[opcao].vida << endl;
+		cout << "OPONENTE:\t" << Monstro.monstros[monstro].nome << "\t\tVida: " << Monstro.monstros[monstro].vida << endl;
+		for (int i = 0; i < 3; i++) {
+			if (aplicadanojogador[i] > 0)
+				cout << "Dano a ser aplicado no proximo round pelo jogador: " << aplicadanojogador[i] << endl;
+			if (aplicadanomonstro[i] > 0)
+				cout << "Dano a ser aplicado no proximo round pelo monstro: " << aplicadanomonstro[i] << endl;
 		}
+		cout << "Precione qualquer tecla para ir ao proximo round;" << endl;
+		_getch();
+		contador++;
 		system("cls");
 	}
 }
@@ -418,15 +437,19 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 void inicia() {
 	ATAQUE aa, q, w, e;
 	aa.dano = 10;
+	aa.cd = 0;
 	q.dano = 15;
+	q.cd = 0;
 	w.dano = 20;
+	w.cd = 0;
 	e.dano = 25;
+	e.cd = 0;
 
 	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, dragon, ashe, garen;
 
 	arauto.nome = "arauto";
 	arauto.level = 50;
-	arauto.vida = 400 * arauto.level;
+	arauto.vida = 1000 * arauto.level;
 	arauto.ataque[0] = aa;
 	arauto.ataque[0].dano *= arauto.level;
 	arauto.ataque[1] = q;
@@ -438,7 +461,7 @@ void inicia() {
 
 	arungueijo.nome = "arungueijo";
 	arungueijo.level = 50;
-	arungueijo.vida = 10 * arungueijo.level;
+	arungueijo.vida = 100 * arungueijo.level;
 	arungueijo.ataque[0] = aa;
 	arungueijo.ataque[0].dano *= arungueijo.level / 2;
 	arungueijo.ataque[1] = q;
@@ -450,7 +473,7 @@ void inicia() {
 
 	krugueanciao.nome = "Krugue Anciao";
 	krugueanciao.level = 50;
-	krugueanciao.vida = 25 * krugueanciao.level;
+	krugueanciao.vida = 160 * krugueanciao.level;
 	krugueanciao.ataque[0] = aa;
 	krugueanciao.ataque[0].dano *= krugueanciao.level / 3;
 	krugueanciao.ataque[1] = q;
@@ -462,7 +485,7 @@ void inicia() {
 
 	krugue.nome = "Krugue";
 	krugue.level = 50;
-	krugue.vida = 10 * krugue.level;
+	krugue.vida = 120 * krugue.level;
 	krugue.ataque[0] = aa;
 	krugue.ataque[0].dano *= krugue.level / 4;
 	krugue.ataque[1] = q;
@@ -474,7 +497,7 @@ void inicia() {
 
 	lobomaior.nome = "Lobo Alfa";
 	lobomaior.level = 50;
-	lobomaior.vida = 16 * lobomaior.level;
+	lobomaior.vida = 200 * lobomaior.level;
 	lobomaior.ataque[0] = aa;
 	lobomaior.ataque[0].dano *= lobomaior.level / 3;
 	lobomaior.ataque[1] = q;
@@ -486,7 +509,7 @@ void inicia() {
 
 	lobo.nome = "Lobo";
 	lobo.level = 50;
-	lobo.vida = 12 * lobo.level;
+	lobo.vida = 140 * lobo.level;
 	lobo.ataque[0] = aa;
 	lobo.ataque[0].dano *= lobo.level / 4;
 	lobo.ataque[1] = q;
@@ -498,7 +521,7 @@ void inicia() {
 
 	baron.nome = "Baron";
 	baron.level = 50;
-	baron.vida = 500 * baron.level;
+	baron.vida = 20000 * baron.level;
 	baron.ataque[0] = aa;
 	baron.ataque[0].dano *= baron.level * 2;
 	baron.ataque[1] = q;
@@ -510,7 +533,7 @@ void inicia() {
 
 	dragon.nome = "Dragon";
 	dragon.level = 50;
-	dragon.vida = 14 * dragon.level;
+	dragon.vida = 1200 * dragon.level;
 	dragon.ataque[0] = aa;
 	dragon.ataque[0].dano *= dragon.level / 3;
 	dragon.ataque[1] = q;
