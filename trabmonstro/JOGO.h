@@ -10,7 +10,6 @@ using namespace std;
 
 struct ATAQUE {
 	int dano;
-	int cd;
 };
 struct MONSTRO {
 	int vida;
@@ -24,34 +23,59 @@ struct OPONENTE {
 	int coluna;
 };
 void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPONENTE JOGADOR);
-
+void inicia();
 void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &JOGADOR, int LinhaJogador, int ColunaJogador, int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ]) {
 	srand(time(NULL));
 	int morto = 0, contador = 0, jogadormove = 0, aplicadanojogador[3] = { 0 }, aplicadanomonstro[3] = { 0 }, opcao, ataqueQ = 0, ataqueW = 0, ataqueE = 0;
-	int monstro = 0, ControladorJogador[3] = { 0 }, ControladorMonstro[3] = { 0 }, superpotedevida = 4;
-	cout << "INICIO DA BATALHA!!!!!!!!!!!!!!!!!!!!!!";
+	int monstro = 0, ControladorJogador[3] = { 0 }, ControladorMonstro[3] = { 0 }, superpotedevida = 10;
+	system("cls");
+	cout << "INICIO DA BATALHA CONTRA: " << Monstro.monstros[monstro].nome <<"\tVida: "<<Monstro.monstros[monstro].vida<<endl;
 	while (morto == 0) {
 		if (contador == 0) {
+			int confirma = 0;
 			do {
-				cout << "Escolha seu champ: " << endl << "Ashe [0]" << endl << "Garen [1]" << endl;
+				cout << "Escolha seu champ: " << endl; 
+				if (JOGADOR.monstros[0].vida > 0) {
+					cout << "0: Ashe\t\tVida: " << JOGADOR.monstros[0].vida << endl;
+				}
+				if (JOGADOR.monstros[1].vida > 0) {
+					cout<< "1: Garen\tVida: " << JOGADOR.monstros[1].vida << endl;
+				}
 				opcao = _getch() - 48;
+				if (opcao == 0 && JOGADOR.monstros[0].vida > 0)
+					confirma = 1;
+				if (opcao == 1 && JOGADOR.monstros[1].vida > 0)
+					confirma = 1;
 				system("cls");
-			} while (opcao != 0 && opcao != 1);
+			} while (confirma==0);
 		}
 		cout << "ROUND: " << contador << endl;
 		cout << "JOGADOR:\t" << JOGADOR.monstros[opcao].nome << "\t\t\tVida: " << JOGADOR.monstros[opcao].vida << endl;
 		cout << "OPONENTE:\t" << Monstro.monstros[monstro].nome << "\t\tVida: " << Monstro.monstros[monstro].vida << endl;
 		cout << "Ecolha seu ataque: " << endl << "A : Auto-Ataque\t\t\tDano : " << JOGADOR.monstros[opcao].ataque[0].dano << endl;
-		cout << "Q : Acerto Decisivo\t\tDano : " << JOGADOR.monstros[opcao].ataque[1].dano << endl;
-		cout << "W : Julgamento\t\t\tDano : " << JOGADOR.monstros[opcao].ataque[2].dano << endl;
-		cout << "E : Poder do Grao-Mestre\tDano : " << JOGADOR.monstros[opcao].ataque[3].dano << endl;
-		cout << "V : Super-Pote de VIDA\t\t\REGENERA: 5k de vida" << endl;
-
-	
+		if (ataqueQ<4) {
+			if (ControladorJogador[0]==0)
+				cout << "Q : Acerto Decisivo\t\tDano : " << JOGADOR.monstros[opcao].ataque[1].dano << endl;
+			else 
+				cout << "Q : Acerto Decisivo(em countdown)\tDano : " << JOGADOR.monstros[opcao].ataque[1].dano << endl;
+		}
+		if (ataqueW < 4) {
+			if (ControladorJogador[1]==0)
+				cout << "W : Julgamento\t\t\tDano : " << JOGADOR.monstros[opcao].ataque[2].dano << endl;
+			else 
+				cout << "W : Julgamento(em countdown)\t\tDano : " << JOGADOR.monstros[opcao].ataque[2].dano << endl;
+		}
+		if (ataqueE < 4) {
+			if (ControladorJogador[2] ==0)
+				cout << "E : Poder do Grao-Mestre\tDano : " << JOGADOR.monstros[opcao].ataque[3].dano << endl;
+			else
+				cout << "E : Poder do Grao-Mestre(em countdown)\tDano : " << JOGADOR.monstros[opcao].ataque[3].dano << endl;
+		}
+		cout << "V : Super-Pote de VIDA("<<superpotedevida<<")\t\t\REGENERA: 5k de vida" << endl;
 		int tecla = 0;
 		for (int i = 0; i < 3; i++) {
 			if (ControladorMonstro[i] = contador) {
-				JOGADOR.monstros[monstro].vida -= aplicadanomonstro[i];
+				JOGADOR.monstros[opcao].vida -= aplicadanomonstro[i];
 				aplicadanomonstro[i] = 0;
 				ControladorMonstro[i] = 0;
 			}
@@ -87,52 +111,59 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 				cout << "POTES RESTANTES: " << superpotedevida << endl;
 			}
 		} while (jogadormove == 0);
-		if (jogadormove >= 1) {
+		do {
 			for (int i = 0; i < 3; i++) {
-				if (ControladorJogador[i] = contador) {
+				if (ControladorJogador[i] == contador) {
 					Monstro.monstros[monstro].vida -= aplicadanojogador[i];
 					aplicadanojogador[i] = 0;
 					ControladorJogador[i] = 0;
 				}
 			}
-			jogadormove--;
 			int ataquemonstro=rand() % 4;
 			if (ataquemonstro == 0) {
 				JOGADOR.monstros[opcao].vida -= Monstro.monstros[monstro].ataque[0].dano;
+				jogadormove--;
 			}
 			if (ataquemonstro == 1) {
 				JOGADOR.monstros[opcao].vida -= (Monstro.monstros[monstro].ataque[1].dano)/2;
 				aplicadanomonstro[0] += (Monstro.monstros[monstro].ataque[1].dano) / 2;
 				ControladorMonstro[0] = contador + 1;
+				jogadormove--;
 			}
 			if (ataquemonstro == 2) {
 				JOGADOR.monstros[opcao].vida -= (Monstro.monstros[monstro].ataque[2].dano)/2;
 				aplicadanomonstro[1] += (Monstro.monstros[monstro].ataque[2].dano) / 2;
 				ControladorMonstro[1] = contador + 1;
+				jogadormove--;
 			}
 			if (ataquemonstro == 3) {
 				JOGADOR.monstros[opcao].vida -= (Monstro.monstros[monstro].ataque[3].dano)/2;
 				aplicadanomonstro[2] += (Monstro.monstros[monstro].ataque[3].dano) / 2;
 				ControladorMonstro[2] = contador + 1;
+				jogadormove--;
 			}
-		}
+		} while (jogadormove == 1);
 		if (JOGADOR.monstros[opcao].vida <= 0) {
-			cout << "ENTROU NA VIDA";
 			if (opcao == 0 && JOGADOR.monstros[1].vida > 0) {
+				cout << "Seu campeão morreu...mudando de personagem...";
 				opcao++;
 				ataqueQ = 0;
 				ataqueW = 0;
 				ataqueE = 0;
 			}
 			if (opcao == 1 && JOGADOR.monstros[0].vida > 0) {
+				cout << "Seu campeão morreu...mudando de personagem...";
 				opcao--;
 				ataqueQ = 0;
 				ataqueW = 0;
 				ataqueE = 0;
 			}
 			else if (JOGADOR.monstros[0].vida<=0 && JOGADOR.monstros[1].vida<=0) {
-				cout << "-------------------------GAMEOVER--------------";
+				cout << "-------------------------GAMEOVER--------------------" << endl;
+				cout << "precione Enter para iniciar um novo jogo.";
 				getchar();
+				system("cls");
+				inicia();
 			}
 		}
 		if (Monstro.monstros[monstro].vida <= 0) {
@@ -141,7 +172,6 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 			else {
 				MatrizMonstro[LinhaMonstro][ColunaMonstro] = 0;
 				morto = 1;
-
 			}
 		}
 		cout << "JOGADOR:\t" << JOGADOR.monstros[opcao].nome << "\t\t\tVida: " << JOGADOR.monstros[opcao].vida << endl;
@@ -445,13 +475,9 @@ bool contadordemovimento(int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ], int Li
 void inicia() {
 	ATAQUE aa, q, w, e;
 	aa.dano = 10;
-	aa.cd = 0;
 	q.dano = 15;
-	q.cd = 0;
 	w.dano = 20;
-	w.cd = 0;
 	e.dano = 25;
-	e.cd = 0;
 
 	MONSTRO arauto, arungueijo, krugueanciao, krugue, lobomaior, lobo, baron, dragon, ashe, garen;
 
@@ -529,7 +555,7 @@ void inicia() {
 
 	baron.nome = "Baron";
 	baron.level = 50;
-	baron.vida = 20000 * baron.level;
+	baron.vida = 1000 * baron.level;
 	baron.ataque[0] = aa;
 	baron.ataque[0].dano *= baron.level * 2;
 	baron.ataque[1] = q;
@@ -541,7 +567,7 @@ void inicia() {
 
 	dragon.nome = "Dragon";
 	dragon.level = 50;
-	dragon.vida = 1200 * dragon.level;
+	dragon.vida = 600 * dragon.level;
 	dragon.ataque[0] = aa;
 	dragon.ataque[0].dano *= dragon.level / 3;
 	dragon.ataque[1] = q;
@@ -627,11 +653,24 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 		}
 		cout << endl;
 	}
-	int round = 0, controlederound = 0;
-	while (true) {						//O JOGO COMECA AQUI!!!!!!!!!
+	int round = 0, controlederound = 0, jogando = 0;
+	while (jogando==0) {						//Loop jogo
 		int monstro = 0, lobosmorto = 0, baronmorto = 0, arautomorto = 0, pedrasmorto = 0;
 		if (getchar() == 10)
 			round++;
+		if (lobosmorto != 0 && baronmorto != 0 && arautomorto != 0 && pedrasmorto != 0) { //ver aki por q nao ta entrando..
+			system("cls");
+			cout << "VOCE VENCEU!!!!!!!!" <<endl<<"Precione ENTER se deseja jogar novamente ou ESC para sair";
+			do {
+				jogando = _getch();
+				if (jogando == 10) {
+					inicia();
+				}
+				if (jogando == 27) {
+					jogando = 1;
+				}
+			} while (jogando != 10 || jogando != 27);
+		}
 		if (controlederound != round) {
 			cout << "Processando...Aguarde.";
 			do{
@@ -737,17 +776,9 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 				}
 				cout << endl;
 			}
-			
 		}
 		controlederound = round;
 	}
-	
-	
-	
-
-
-
-
 	system("pause");
 	
 
