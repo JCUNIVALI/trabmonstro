@@ -653,24 +653,11 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 		}
 		cout << endl;
 	}
-	int round = 0, controlederound = 0, jogando = 0;
+	int round = 0, controlederound = 0, jogando = 0, lobosmorto = 0, baronmorto = 0, arautomorto = 0, pedrasmorto = 0;
 	while (jogando==0) {						//Loop jogo
-		int monstro = 0, lobosmorto = 0, baronmorto = 0, arautomorto = 0, pedrasmorto = 0;
+		int monstro = 0;
 		if (getchar() == 10)
 			round++;
-		if (lobosmorto != 0 && baronmorto != 0 && arautomorto != 0 && pedrasmorto != 0) { //ver aki por q nao ta entrando..
-			system("cls");
-			cout << "VOCE VENCEU!!!!!!!!" <<endl<<"Precione ENTER se deseja jogar novamente ou ESC para sair";
-			do {
-				jogando = _getch();
-				if (jogando == 10) {
-					inicia();
-				}
-				if (jogando == 27) {
-					jogando = 1;
-				}
-			} while (jogando != 10 || jogando != 27);
-		}
 		if (controlederound != round) {
 			cout << "Processando...Aguarde.";
 			do{
@@ -748,6 +735,34 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 					}
 				}
 				cout << endl;
+			}
+			system("cls");
+			cout << "Round " << round << endl;
+			for (int l = 0; l < TAMANHOMATRIZ; l++) {
+				for (int c = 0; c < TAMANHOMATRIZ; c++) {
+					if (l == JOGADOR.linha && c == JOGADOR.coluna)
+						cout << "P1" << "\t";
+					else {
+						if (MatrizMonstro[l][c] == 1)
+							cout << "NPC" << "\t";
+						else
+							cout << "----" << "\t";
+					}
+				}
+				cout << endl;
+			}
+			if (lobosmorto != 0 && baronmorto != 0 && arautomorto != 0 && pedrasmorto != 0) {
+				system("cls");
+				cout << "VOCE VENCEU!!!!!!!!" << endl << "Precione ENTER se deseja jogar novamente ou ESC para sair";
+				do {
+					jogando = _getch();
+					if (jogando == 10) {
+						inicia();
+					}
+					if (jogando == 27) {
+						jogando = 1;
+					}
+				} while (jogando != 1);
 			}
 			if (Lobos.linha == JOGADOR.linha && Lobos.coluna == JOGADOR.coluna && lobosmorto==0) {
 				batalha(Lobos, Lobos.linha, Lobos.coluna, JOGADOR, JOGADOR.linha, JOGADOR.coluna,MatrizMonstro);
