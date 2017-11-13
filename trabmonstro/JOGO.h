@@ -27,7 +27,7 @@ void inicia();
 void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &JOGADOR, int LinhaJogador, int ColunaJogador, int MatrizMonstro[TAMANHOMATRIZ][TAMANHOMATRIZ]) {
 	srand(time(NULL));
 	int morto = 0, contador = 0, jogadormove = 0, aplicadanojogador[3] = { 0 }, aplicadanomonstro[3] = { 0 }, opcao, ataqueQ = 0, ataqueW = 0, ataqueE = 0;
-	int monstro = 0, ControladorJogador[3] = { 0 }, ControladorMonstro[3] = { 0 }, superpotedevida = 10;
+	int monstro = 0, ControladorJogador[3] = { 0 }, ControladorMonstro[3] = { 0 }, superpotedevida = 5;
 	system("cls");
 	cout << "INICIO DA BATALHA CONTRA: " << Monstro.monstros[monstro].nome <<"\tVida: "<<Monstro.monstros[monstro].vida<<endl;
 	while (morto == 0) {
@@ -71,7 +71,7 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 			else
 				cout << "E : Poder do Grao-Mestre(em countdown)\tDano : " << JOGADOR.monstros[opcao].ataque[3].dano << endl;
 		}
-		cout << "V : Super-Pote de VIDA("<<superpotedevida<<")\t\t\REGENERA: 5k de vida" << endl;
+		cout << "V : Super-Pote de VIDA("<<superpotedevida<<")\t\t\REGENERA: 2,5k de vida" << endl;
 		int tecla = 0;
 		for (int i = 0; i < 3; i++) {
 			if (ControladorMonstro[i] = contador) {
@@ -90,22 +90,25 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 				Monstro.monstros[monstro].vida -= (JOGADOR.monstros[opcao].ataque[1].dano) / 2;
 				aplicadanojogador[0] += (JOGADOR.monstros[opcao].ataque[1].dano) / 2;
 				ControladorJogador[0] = contador + 1;
+				ataqueQ++;
 				jogadormove++;
 			}
 			if (tecla == 119 && ataqueW < 4 && ControladorJogador[1] == 0) {//tecla w
 				Monstro.monstros[monstro].vida -= (JOGADOR.monstros[opcao].ataque[2].dano) / 2;
 				aplicadanojogador[1] += (JOGADOR.monstros[opcao].ataque[2].dano) / 2;
 				ControladorJogador[1] = contador + 1;
+				ataqueW++;
 				jogadormove++;
 			}
 			if (tecla == 101 && ataqueE < 4 && ControladorJogador[2] == 0) {//tecla e
 				Monstro.monstros[monstro].vida -= (JOGADOR.monstros[opcao].ataque[3].dano) / 2;
 				aplicadanojogador[2] += (JOGADOR.monstros[opcao].ataque[3].dano) / 2;
 				ControladorJogador[2] = contador + 1;
+				ataqueE++;
 				jogadormove++;
 			}
 			if (tecla == 118 && superpotedevida>0) {
-				JOGADOR.monstros[opcao].vida += 5000;
+				JOGADOR.monstros[opcao].vida += 2500;
 				superpotedevida = superpotedevida - 1;
 				cout << "SUPER POTE DE VIDA USADO. \tVIDA: " << JOGADOR.monstros[opcao].vida << endl;
 				cout << "POTES RESTANTES: " << superpotedevida << endl;
@@ -150,6 +153,7 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 				ataqueQ = 0;
 				ataqueW = 0;
 				ataqueE = 0;
+				superpotedevida = 5;
 			}
 			if (opcao == 1 && JOGADOR.monstros[0].vida > 0) {
 				cout << "Seu campeão morreu...mudando de personagem...";
@@ -157,6 +161,7 @@ void batalha(OPONENTE &Monstro, int LinhaMonstro, int ColunaMonstro, OPONENTE &J
 				ataqueQ = 0;
 				ataqueW = 0;
 				ataqueE = 0;
+				superpotedevida = 5;
 			}
 			else if (JOGADOR.monstros[0].vida<=0 && JOGADOR.monstros[1].vida<=0) {
 				cout << "-------------------------GAMEOVER--------------------" << endl;
@@ -755,8 +760,9 @@ void jogo(OPONENTE Arauto, OPONENTE Pedras, OPONENTE Lobos, OPONENTE Baron, OPON
 				system("cls");
 				cout << "VOCE VENCEU!!!!!!!!" << endl << "Precione ENTER se deseja jogar novamente ou ESC para sair";
 				do {
-					jogando = _getch();
+					jogando = getchar();
 					if (jogando == 10) {
+						system("cls");
 						inicia();
 					}
 					if (jogando == 27) {
